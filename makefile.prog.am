@@ -1,0 +1,7 @@
+AUTOMAKE_OPTIONS=foreign subdir-objects
+bin_PROGRAMS=ypkg
+ypkg_SOURCES=src/ypkg-common.cpp src/inc/ypkg-srclist.cpp src/main.cpp \
+ src/ypkg-parser.cpp  src/cmd/ypkg-help.cpp src/inc/ypkg-curl.cpp \
+ src/cmd/ypkg-update.cpp src/inc/ypkg-config.cpp
+ypkg_LDADD=-lcurl
+ypkg_CXXFLAGS=-DDEBUG
