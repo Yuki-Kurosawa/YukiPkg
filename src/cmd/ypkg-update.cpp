@@ -2,6 +2,7 @@
 #include "src/cmd/ypkg-update.h"
 #include "src/inc/ypkg-curl.h"
 #include "src/inc/ypkg-srclist.h"
+#include "src/conf/ypkg-apt-config.h"
 
 int UpdateCommand(int argc,char** argv){
     
@@ -13,7 +14,9 @@ int UpdateCommand(int argc,char** argv){
     int len=(src_list).size();    
     
     for(int i=0;i<len;i++){
-        printf("%d: %s\n",i+1,((src_list)[i]).c_str());
+        char* conf=(char*)((src_list)[i]).c_str();
+        struct SrcConfig sconf=SourceToConfig(conf);
+        printf("%d: %d %s %s\n",i+1,sconf.repoType,sconf.baseUrl,sconf.codeName);
     }
     //int ret=DownloadFiles((char*)"https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe",(char*)"test.exe",true);
     //printf("%d\n",ret);

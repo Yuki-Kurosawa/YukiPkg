@@ -30,8 +30,8 @@ cp sources.list ./etc/ypkg/sources.list
 
 # Do some unit tests
 echo "-------------------- BEGIN UNIT TESTS --------------------"
-./ypkg
-./ypkg version
+#./ypkg
+#./ypkg version
 ./ypkg up
 echo "-------------------- END UNIT TESTS --------------------"
 

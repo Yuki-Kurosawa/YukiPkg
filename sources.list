@@ -1,2 +1,2 @@
-deb https://test.com/ubuntu jammy
+ubu https://test.com/ubuntu jammy
 deb https://test.com/debian sid
