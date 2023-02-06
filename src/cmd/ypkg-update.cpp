@@ -7,14 +7,14 @@
 int UpdateCommand(int argc,char** argv){
     
     int ret=0;
-    vector<string> src_list=ReadSourcesList(&ret);
+    vector<char*> src_list=ReadSourcesList(&ret);
     if(ret!=0) return ret;
 
    
     int len=(src_list).size();    
     
     for(int i=0;i<len;i++){
-        char* conf=(char*)((src_list)[i]).c_str();
+        char* conf=(src_list)[i];
         struct SrcConfig sconf=SourceToConfig(conf);
         printf("%d: %d %s %s\n",i+1,sconf.repoType,sconf.baseUrl,sconf.codeName);
     }

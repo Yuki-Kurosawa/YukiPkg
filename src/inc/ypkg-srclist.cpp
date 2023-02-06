@@ -2,13 +2,13 @@
 #include "src/inc/ypkg-srclist.h"
 
 
-vector<string> ReadSourcesList(int* code)
+vector<char*> ReadSourcesList(int* code)
 {
     FILE *fp=fopen(SOURCES_LIST,"rb");
     if(!fp){
         printf("%s\n","failed to lock sources.list");
         *code=-1;
-        return vector<string>();
+        return vector<char*>();
     }
 
     int line=5;
@@ -24,7 +24,7 @@ vector<string> ReadSourcesList(int* code)
         strcat(slist,buf);
     }
 
-    vector<string> alist=split(slist,"\n");
+    vector<char*> alist=split(slist,"\n");
     code=0;
     return alist;
 
@@ -41,24 +41,18 @@ SrcRepoType String2SrcRepoType(const char* type)
 
 struct SrcConfig SourceToConfig(char* conf)
 {
-    vector<string> sconf= split(conf," ");
+    vector<char*> sconf= split(conf," ");
     try
     {
-        SrcRepoType type=String2SrcRepoType(sconf[0].c_str());
-        char* url=(char*)sconf[1].c_str();
-        char url2[sizeof(url)*(strlen(url)+1)]={0};
-        strcat(url2,url);
-        strcat(url2,"\0");
-        char* name=(char*)sconf[2].c_str();
-        char name2[sizeof(name)*(strlen(name)+1)]={0};
-        strcat(name2,name);
-        strcat(name2,"\0");
+        SrcRepoType type=String2SrcRepoType(sconf[0]);
+        char* url=sconf[1];
+        char* name=sconf[2];
 
         struct SrcConfig confObj=
         {
             type,
-            url2,
-            name2
+            url,
+            name
         };
         return confObj;
     }
