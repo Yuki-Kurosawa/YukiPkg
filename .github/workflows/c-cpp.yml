@@ -12,6 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: install deps
-      run: apt install libcurl4-openssl-dev libssl-dev -y
+      run: sudo apt install libcurl4-openssl-dev libssl-dev -y
     - name: build and test
       run: ./build.sh
