@@ -15,6 +15,8 @@
     #define PACKAGE_INDEX "/var/lib/ypkg/pkgcache.bin"
 #endif
 
-
+#define DEBIAN_CONFIG_STR "main contrib non-free"
+#define UBUNTU_CONFIG_STR "main universe restricted multiverse"
+#define MAINONLY_CONFIG_STR "main"
 
 #endif

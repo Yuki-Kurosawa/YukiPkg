@@ -16,4 +16,5 @@ struct SrcConfig
     char* codeName;
 };
 
+
 #endif

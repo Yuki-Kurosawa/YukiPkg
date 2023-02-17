@@ -32,8 +32,8 @@ cp sources.list ./etc/ypkg/sources.list
 echo "-------------------- BEGIN UNIT TESTS --------------------"
 #./ypkg
 #./ypkg version
-./ypkg cf
-#./ypkg up
+#./ypkg cf
+./ypkg up
 echo "-------------------- END UNIT TESTS --------------------"
 
 # Remove Last Build

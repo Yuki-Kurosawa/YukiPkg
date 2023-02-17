@@ -59,7 +59,36 @@ struct SrcConfig SourceToConfig(char* conf)
     catch(const std::exception& e)
     {
         printf("ERROR: %s\n",e.what());
-        return {SrcRepoType::Unknown,"CONFIG ERROR","ERROR"};
+        return {SrcRepoType::Unknown,(char*)"CONFIG ERROR",(char*)"ERROR"};
     }
     
 }
+
+char* ParseConfigToAptConfig(SrcConfig config)
+{
+    string src="";
+    src+="deb ";
+    src+=config.baseUrl;
+    src+=" ";
+    src+=config.codeName;
+    src+=" ";
+    switch (config.repoType)
+    {
+    case Debian:
+        src+=DEBIAN_CONFIG_STR;
+        break;
+    case Ubuntu:
+        src+=UBUNTU_CONFIG_STR;
+        break;
+    case MainOnly:
+        src+=MAINONLY_CONFIG_STR;
+        break;
+    default:
+        src+="main";
+        break;
+    }
+    char* ret=new char[src.length() + 1];
+    strcpy(ret, src.c_str());
+    return ret;
+}
+

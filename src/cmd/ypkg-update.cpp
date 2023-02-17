@@ -16,9 +16,6 @@ int UpdateCommand(int argc,char** argv){
     for(int i=0;i<len;i++){
         char* conf=(src_list)[i];
         struct SrcConfig sconf=SourceToConfig(conf);
-        printf("%d: %d %s %s\n",i+1,sconf.repoType,sconf.baseUrl,sconf.codeName);
     }
-    //int ret=DownloadFiles((char*)"https://dldir1.qq.com/weixin/Windows/WeChatSetup.exe",(char*)"test.exe",true);
-    //printf("%d\n",ret);
     return 0;
 }
