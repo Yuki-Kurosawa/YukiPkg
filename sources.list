@@ -1,2 +1,2 @@
-ubu https://test.com/ubuntu jammy
-deb https://test.com/debian sid
+ubu https://mirrors.aliyun.com/ubuntu jammy
+deb https://mirrors.aliyun.com/debian sid

@@ -24,7 +24,7 @@ vector<char*> ReadSourcesList(int* code)
         strcat(slist,buf);
     }
 
-    vector<char*> alist=split(slist,"\n");
+    vector<char*> alist=StrSplit(slist,"\n");
     code=0;
     return alist;
 
@@ -41,7 +41,7 @@ SrcRepoType String2SrcRepoType(const char* type)
 
 struct SrcConfig SourceToConfig(char* conf)
 {
-    vector<char*> sconf= split(conf," ");
+    vector<char*> sconf= StrSplit(conf," ");
     try
     {
         SrcRepoType type=String2SrcRepoType(sconf[0]);
@@ -87,8 +87,7 @@ char* ParseConfigToAptConfig(SrcConfig config)
         src+="main";
         break;
     }
-    char* ret=new char[src.length() + 1];
-    strcpy(ret, src.c_str());
+    char* ret=StringToCharPointer(src);
     return ret;
 }
 

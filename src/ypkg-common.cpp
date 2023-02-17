@@ -6,7 +6,7 @@ int ShowVersionCommand(int argc,char** argv)
     return 0;
 }
 
-vector<char*> split(const string& str, const string& delim) 
+vector<char*> StrSplit(const string& str, const string& delim) 
 {  
     vector<char*> res;  
     if("" == str) return res;  
@@ -20,11 +20,17 @@ vector<char*> split(const string& str, const string& delim)
     char *p = strtok(strs, d);  
     while(p) {  
         string s = p; //分割得到的字符串转换为string类型 
-        char* ret=new char[s.length() + 1];
-        strcpy(ret, s.c_str());  
+        char* ret=StringToCharPointer(s);  
         res.push_back(ret); //存入结果数组  
         p = strtok(NULL, d);  
     }  
  
     return res;  
+}
+
+char* StringToCharPointer(string s)
+{
+    char* ret=new char[s.length() + 1];
+    strcpy(ret, s.c_str());  
+    return ret;
 }

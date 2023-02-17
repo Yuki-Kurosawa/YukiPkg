@@ -42,7 +42,9 @@ const struct CommandObject cmds[]={
         {"version", "v", "show ypkg version", ShowVersionCommand},//+
     };
 
-vector<char*> split(const string& str, const string& delim);
+vector<char*> StrSplit(const string& str, const string& delim);
+
+char* StringToCharPointer(string s);
 
 #define YPKG_COMMON_H
 

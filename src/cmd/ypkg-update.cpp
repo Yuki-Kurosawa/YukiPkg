@@ -16,6 +16,8 @@ int UpdateCommand(int argc,char** argv){
     for(int i=0;i<len;i++){
         char* conf=(src_list)[i];
         struct SrcConfig sconf=SourceToConfig(conf);
+        long p=DownloadFiles(sconf.baseUrl,"tmp.txt",false);
+        printf("%ld\n",p);
     }
     return 0;
 }

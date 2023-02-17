@@ -11,7 +11,7 @@ static int ProgressCallback(void *clientp, double dltotal, double dlnow, double 
     return 0;  
 }  
 
-int DownloadFiles(char* url,char* filename,bool dryrun)
+long DownloadFiles(char* url,char* filename,bool dryrun)
 {
 	try
 	{
@@ -82,7 +82,7 @@ int DownloadFiles(char* url,char* filename,bool dryrun)
 		curl_easy_cleanup(pCurl);
 		fclose(fp);
 
-		return (int)res_code;
+		return res_code;
 	}
 	catch (exception& e) {
 		printf("%s",e.what());
