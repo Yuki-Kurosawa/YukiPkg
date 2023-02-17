@@ -4,6 +4,6 @@
 
 #define YPKG_CURL_H
 
-long DownloadFiles(char* url,char* filename,bool dryrun=false);
+long DownloadFiles(char* url,char* filename,long* size,bool dryrun=false);
 
 #endif

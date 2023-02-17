@@ -34,6 +34,7 @@ echo "-------------------- BEGIN UNIT TESTS --------------------"
 #./ypkg version
 #./ypkg cf
 ./ypkg up
+cp -R ./var/lib/ypkg/ ./testvar
 echo "-------------------- END UNIT TESTS --------------------"
 
 # Remove Last Build

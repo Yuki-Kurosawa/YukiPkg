@@ -11,7 +11,7 @@ static int ProgressCallback(void *clientp, double dltotal, double dlnow, double 
     return 0;  
 }  
 
-long DownloadFiles(char* url,char* filename,bool dryrun)
+long DownloadFiles(char* url,char* filename,long* size,bool dryrun)
 {
 	try
 	{
@@ -75,8 +75,7 @@ long DownloadFiles(char* url,char* filename,bool dryrun)
 
 		long res_code = 0;
 		res = curl_easy_getinfo(pCurl, CURLINFO_RESPONSE_CODE, &res_code);
-
-		//printf("%ld\n",res_code);
+		res=curl_easy_getinfo(pCurl, CURLINFO_CONTENT_LENGTH_DOWNLOAD_T, size); 
 		
 		curl_slist_free_all(pList);
 		curl_easy_cleanup(pCurl);

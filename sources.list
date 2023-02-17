@@ -1,2 +1,2 @@
 ubu https://mirrors.aliyun.com/ubuntu jammy
-deb https://mirrors.aliyun.com/debian sid
+deb https://mirrors.aliyun.com/debian4 sid

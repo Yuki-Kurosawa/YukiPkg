@@ -46,6 +46,8 @@ vector<char*> StrSplit(const string& str, const string& delim);
 
 char* StringToCharPointer(string s);
 
+void StringReplace(string&s1,const string&s2,const string&s3);
+
 #define YPKG_COMMON_H
 
 #endif
