@@ -21,15 +21,10 @@ int UpdateCommand(int argc,char** argv){
         release_url+=sconf.codeName;
         release_url+="/Release";
 
-        string release_url2=release_url;
-        StringReplace(release_url2,"http://","");
-        StringReplace(release_url2,"https://","");
-        StringReplace(release_url2,"file://","");
-        StringReplace(release_url2,"/","_");
-        StringReplace(release_url2,":","_");
+        string fn=ParseURLAsFileName(release_url);
 
         string release_file=SOURCE_CACHE_DIR;
-        release_file+=release_url2;
+        release_file+=fn;
         long size=0;
         long p=DownloadFiles(StringToCharPointer(release_url),StringToCharPointer(release_file),&size,true);
         if(p!=200)
@@ -38,8 +33,8 @@ int UpdateCommand(int argc,char** argv){
         }
         else
         {
-            DownloadFiles(StringToCharPointer(release_url),StringToCharPointer(release_file),&size,false);
             printf("Get:%d %s %s %s [%ld Bytes]\n",i+1,sconf.baseUrl,sconf.codeName,"Release",size);
+            DownloadFiles(StringToCharPointer(release_url),StringToCharPointer(release_file),&size,false);            
         }
     }
     return 0;

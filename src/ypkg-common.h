@@ -48,6 +48,8 @@ char* StringToCharPointer(string s);
 
 void StringReplace(string&s1,const string&s2,const string&s3);
 
+string ParseURLAsFileName(string url);
+
 #define YPKG_COMMON_H
 
 #endif

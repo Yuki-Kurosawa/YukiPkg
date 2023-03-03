@@ -47,3 +47,15 @@ void StringReplace(string&s1,const string&s2,const string&s3)
 		pos+=b;
 	}
 }
+
+string ParseURLAsFileName(string url)
+{
+    string ret=url;
+    StringReplace(ret,"http://","");
+    StringReplace(ret,"https://","");
+    StringReplace(ret,"file://","");
+    StringReplace(ret,"/","_");
+    StringReplace(ret,":","_");
+
+    return ret;
+}
