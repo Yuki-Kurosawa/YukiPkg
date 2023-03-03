@@ -11,9 +11,11 @@ int UpdateCommand(int argc,char** argv){
     if(ret!=0) return ret;
 
    
-    int len=(src_list).size();    
+    int len=(src_list).size(); 
+
+    int i=0;   
     
-    for(int i=0;i<len;i++){
+    for(i=0;i<len;i++){
         char* conf=(src_list)[i];
         struct SrcConfig sconf=SourceToConfig(conf);
         string release_url=sconf.baseUrl;
@@ -37,5 +39,46 @@ int UpdateCommand(int argc,char** argv){
             DownloadFiles(StringToCharPointer(release_url),StringToCharPointer(release_file),&size,false);            
         }
     }
+
+    int process=i;
+    {
+        for(i=0;i<len;i++){
+            char* conf=(src_list)[i];
+            struct SrcConfig sconf=SourceToConfig(conf);
+            char* repos=ParseConfigToAptConfigRepoStr(sconf);
+
+            vector<char*> rlist=StrSplit(repos," ");
+            int rlen=(src_list).size();
+
+            for(int j=0;j<rlen;j++)
+            {
+                process++;
+                char* repo=rlist[j];
+                string release_url=sconf.baseUrl;
+                release_url+="/dists/";
+                release_url+=sconf.codeName;
+                release_url+="/";
+                release_url+=repo;
+                release_url+="/binary-amd64/Packages.xz";
+
+                string fn=ParseURLAsFileName(release_url);
+
+                string release_file=SOURCE_CACHE_DIR;
+                release_file+=fn;
+                long size=0;
+                long p=DownloadFiles(StringToCharPointer(release_url),StringToCharPointer(release_file),&size,true);
+                if(p!=200)
+                {
+                    printf("Hit:%d %s %s/%s %s \n",process,sconf.baseUrl,sconf.codeName,repo,"Packages.xz");
+                }
+                else
+                {
+                    printf("Get:%d %s %s/%s %s [%ld Bytes]\n",process,sconf.baseUrl,sconf.codeName,repo,"Packages.xz",size);
+                    DownloadFiles(StringToCharPointer(release_url),StringToCharPointer(release_file),&size,false);            
+                }
+            }
+        }
+    }
+
     return 0;
 }

@@ -64,7 +64,7 @@ struct SrcConfig SourceToConfig(char* conf)
     
 }
 
-char* ParseConfigToAptConfig(SrcConfig config)
+char* ParseConfigToAptConfigStr(SrcConfig config)
 {
     string src="";
     src+="deb ";
@@ -91,3 +91,24 @@ char* ParseConfigToAptConfig(SrcConfig config)
     return ret;
 }
 
+char* ParseConfigToAptConfigRepoStr(SrcConfig config)
+{
+    string src="";
+    switch (config.repoType)
+    {
+    case Debian:
+        src+=DEBIAN_CONFIG_STR;
+        break;
+    case Ubuntu:
+        src+=UBUNTU_CONFIG_STR;
+        break;
+    case MainOnly:
+        src+=MAINONLY_CONFIG_STR;
+        break;
+    default:
+        src+="main";
+        break;
+    }
+    char* ret=StringToCharPointer(src);
+    return ret;
+}

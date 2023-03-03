@@ -15,7 +15,7 @@ int ConfigCommand(int argc,char** argv){
     for(int i=0;i<len;i++){
         char* conf=(src_list)[i];
         struct SrcConfig sconf=SourceToConfig(conf);
-        printf("%s\n",ParseConfigToAptConfig(sconf));
+        printf("%s\n",ParseConfigToAptConfigStr(sconf));
     }
     
     return 0;
