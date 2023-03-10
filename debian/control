@@ -1,0 +1,15 @@
+Source: yukipkg
+Section: utility
+Priority: optional
+Maintainer: Yuki Kurosawa <yuki@ksyuki.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.0
+Homepage: https://github.com/Takeya-Yuki/YukiPkg.git
+Vcs-Browser: https://github.com/Takeya-Yuki/YukiPkg.git
+Vcs-Git: https://github.com/Takeya-Yuki/YukiPkg.git
+Rules-Requires-Root: no
+
+Package: yukipkg
+Architecture: amd64
+Depends: ${shlibs:Depends}
+Description: Yuki's Package Manager
