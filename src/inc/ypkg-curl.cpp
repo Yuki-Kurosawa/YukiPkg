@@ -31,13 +31,17 @@ long DownloadFiles(char* url,char* filename,long* size,bool dryrun)
 			return -1;
 		}
 
+		FILE *fp=nullptr;
 
-		FILE *fp=fopen(filename,"wb");
-
-		if(!fp)
+		if(!dryrun)
 		{
-			cout<<"open file failed";
-			return -1;
+			fp=fopen(filename,"wb");
+
+			if(!fp)
+			{
+				cout<<"open file failed";
+				return -1;
+			}
 		}
 
 		curl_easy_setopt(pCurl, CURLOPT_SSL_VERIFYPEER, 0L);//ignore ssl/tls certificate errors
@@ -48,13 +52,17 @@ long DownloadFiles(char* url,char* filename,long* size,bool dryrun)
 		curl_easy_setopt(pCurl, CURLOPT_CONNECTTIMEOUT, 10L); //connect time out
 		curl_easy_setopt(pCurl, CURLOPT_FOLLOWLOCATION, 1L);//allow 30x request
 		curl_easy_setopt(pCurl, CURLOPT_HEADER, 0L);  //write header to output
-		curl_easy_setopt(pCurl, CURLOPT_WRITEDATA, fp);  //response callback
+		
 
 		if(dryrun)
 		{
 			curl_easy_setopt(pCurl, CURLOPT_CUSTOMREQUEST,"HEAD");	
 			curl_easy_setopt(pCurl, CURLOPT_NOBODY, 1L);	
 		}	
+		else
+		{
+			curl_easy_setopt(pCurl, CURLOPT_WRITEDATA, fp);  //response callback
+		}
 
 		curl_easy_setopt(pCurl, CURLOPT_NOSIGNAL, 1L); //
 		curl_easy_setopt(pCurl, CURLOPT_VERBOSE, 0L); //
@@ -79,8 +87,12 @@ long DownloadFiles(char* url,char* filename,long* size,bool dryrun)
 		
 		curl_slist_free_all(pList);
 		curl_easy_cleanup(pCurl);
-		fclose(fp);
 
+		if (!dryrun)
+		{
+			fclose(fp);
+		}
+		
 		return res_code;
 	}
 	catch (exception& e) {

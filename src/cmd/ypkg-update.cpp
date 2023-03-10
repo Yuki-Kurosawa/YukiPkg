@@ -29,7 +29,7 @@ int UpdateCommand(int argc,char** argv){
         release_file+=fn;
         long size=0;
         long p=DownloadFiles(StringToCharPointer(release_url),StringToCharPointer(release_file),&size,true);
-        if(p!=200)
+        if(p != 200)
         {
             printf("Hit:%d %s %s %s \n",i+1,sconf.baseUrl,sconf.codeName,"Release");
         }
@@ -48,7 +48,7 @@ int UpdateCommand(int argc,char** argv){
             char* repos=ParseConfigToAptConfigRepoStr(sconf);
 
             vector<char*> rlist=StrSplit(repos," ");
-            int rlen=(src_list).size();
+            int rlen=(rlist).size();
 
             for(int j=0;j<rlen;j++)
             {
