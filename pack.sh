@@ -22,7 +22,7 @@ automake --add-missing 1>/dev/null 2>&1
 
 # Build Package
 dh_make -p yukipkg_${YPKG_VER} --createorig 
-dpkg-buildpackage -sa --force-sign #> /dev/null
+dpkg-buildpackage -sa #> /dev/null
 
 sudo dpkg -i ../yukipkg_${YPKG_VER}*.deb > /dev/null
 ypkg version

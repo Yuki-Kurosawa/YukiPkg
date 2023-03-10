@@ -1,7 +1,7 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: yukipkg
-Upstream-Contact: <preferred name and address to reach the upstream project>
-Source: <url://example.com>
+Upstream-Contact: Yuki Kurosawa <yuki@ksyuki.com>
+Source: https://github.com/Takeya-Yuki/YukiPkg.git
 
 Files: *
 Copyright: 2023 Yuki Kurosawa <yuki@ksyuki.com>
