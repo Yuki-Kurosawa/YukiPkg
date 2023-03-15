@@ -24,12 +24,14 @@ automake --add-missing 1>/dev/null 2>&1
 dh_make -p yukipkg_${YPKG_VER} --createorig 
 dpkg-buildpackage -sa #> /dev/null
 
+dpkg -I ../yukipkg_${YPKG_VER}*.deb 
+
 sudo dpkg -i ../yukipkg_${YPKG_VER}*.deb > /dev/null
 ypkg version
 sudo apt purge yukipkg -y > /dev/null
 
-rm -rvf ../yukipkg_${YPKG_VER}* > /dev/null
-rm -rvf ../yukipkg-dbgsym_${YPKG_VER}* > /dev/null
+rm -rvf ../yukipkg_${YPKG_VER}*.deb > /dev/null
+rm -rvf ../yukipkg-dbgsym_${YPKG_VER}*.ddeb > /dev/null
 
 # Remove Last Build
 dh clean

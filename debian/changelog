@@ -1,3 +1,9 @@
+yukipkg (0.0.1-1debian11) unstable; urgency=medium
+
+  * Change download sequence for update command
+
+ -- Yuki Kurosawa HotKey <yuki@ksyuki.com>  Tue, 15 Mar 2023 15:57:12 +0800
+
 yukipkg (0.0.1-1debian10) unstable; urgency=low
 
   * Initial release 

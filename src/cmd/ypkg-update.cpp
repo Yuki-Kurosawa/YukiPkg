@@ -14,8 +14,11 @@ int UpdateCommand(int argc,char** argv){
     int len=(src_list).size(); 
 
     int i=0;   
+    int process=0;
     
     for(i=0;i<len;i++){
+        process++;
+
         char* conf=(src_list)[i];
         struct SrcConfig sconf=SourceToConfig(conf);
         string release_url=sconf.baseUrl;
@@ -31,54 +34,52 @@ int UpdateCommand(int argc,char** argv){
         long p=DownloadFiles(StringToCharPointer(release_url),StringToCharPointer(release_file),&size,true);
         if(p != 200)
         {
-            printf("Hit:%d %s %s %s \n",i+1,sconf.baseUrl,sconf.codeName,"Release");
+            printf("Hit:%d %s %s %s \n",process,sconf.baseUrl,sconf.codeName,"Release");
         }
         else
         {
-            printf("Get:%d %s %s %s [%ld Bytes]\n",i+1,sconf.baseUrl,sconf.codeName,"Release",size);
-            DownloadFiles(StringToCharPointer(release_url),StringToCharPointer(release_file),&size,false);            
-        }
-    }
+            printf("Get:%d %s %s %s [%ld Bytes]\n",process,sconf.baseUrl,sconf.codeName,"Release",size);
+            DownloadFiles(StringToCharPointer(release_url),StringToCharPointer(release_file),&size,false);   
 
-    int process=i;
-    {
-        for(i=0;i<len;i++){
-            char* conf=(src_list)[i];
-            struct SrcConfig sconf=SourceToConfig(conf);
-            char* repos=ParseConfigToAptConfigRepoStr(sconf);
-
-            vector<char*> rlist=StrSplit(repos," ");
-            int rlen=(rlist).size();
-
-            for(int j=0;j<rlen;j++)
             {
-                process++;
-                char* repo=rlist[j];
-                string release_url=sconf.baseUrl;
-                release_url+="/dists/";
-                release_url+=sconf.codeName;
-                release_url+="/";
-                release_url+=repo;
-                release_url+="/binary-amd64/Packages.xz";
+                char* repos=ParseConfigToAptConfigRepoStr(sconf);
 
-                string fn=ParseURLAsFileName(release_url);
+                vector<char*> rlist=StrSplit(repos," ");
+                int rlen=(rlist).size();
 
-                string release_file=SOURCE_CACHE_DIR;
-                release_file+=fn;
-                long size=0;
-                long p=DownloadFiles(StringToCharPointer(release_url),StringToCharPointer(release_file),&size,true);
-                if(p!=200)
+                for(int j=0;j<rlen;j++)
                 {
-                    printf("Hit:%d %s %s/%s %s \n",process,sconf.baseUrl,sconf.codeName,repo,"Packages.xz");
-                }
-                else
-                {
-                    printf("Get:%d %s %s/%s %s [%ld Bytes]\n",process,sconf.baseUrl,sconf.codeName,repo,"Packages.xz",size);
-                    DownloadFiles(StringToCharPointer(release_url),StringToCharPointer(release_file),&size,false);            
+                    process++;
+                    char* repo=rlist[j];
+                    string release_url=sconf.baseUrl;
+                    release_url+="/dists/";
+                    release_url+=sconf.codeName;
+                    release_url+="/";
+                    release_url+=repo;
+                    release_url+="/binary-amd64/Packages.xz";
+
+                    string fn=ParseURLAsFileName(release_url);
+
+                    string release_file=SOURCE_CACHE_DIR;
+                    release_file+=fn;
+                    long size=0;
+                    long p=DownloadFiles(StringToCharPointer(release_url),StringToCharPointer(release_file),&size,true);
+                    if(p!=200)
+                    {
+                        printf("Hit:%d %s %s/%s %s \n",process,sconf.baseUrl,sconf.codeName,repo,"Packages.xz");
+                    }
+                    else
+                    {
+                        printf("Get:%d %s %s/%s %s [%ld Bytes]\n",process,sconf.baseUrl,sconf.codeName,repo,"Packages.xz",size);
+                        DownloadFiles(StringToCharPointer(release_url),StringToCharPointer(release_file),&size,false);            
+                    }
                 }
             }
+         
         }
     }
 
+   
+    
     return 0;
 }

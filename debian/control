@@ -1,5 +1,5 @@
 Source: yukipkg
-Section: utility
+Section: utils
 Priority: optional
 Maintainer: Yuki Kurosawa <yuki@ksyuki.com>
 Build-Depends: debhelper-compat (= 13)
