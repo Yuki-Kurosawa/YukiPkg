@@ -73,9 +73,9 @@ long DownloadFiles(char* url,char* filename,long* size,bool dryrun)
 		curl_slist* pList = NULL;
 
 		//公共头
-		pList = curl_slist_append(pList, "Accept-Encoding:");
-		pList = curl_slist_append(pList, "Accept-Language:zh-CN,zh;q=0.8");
-		pList = curl_slist_append(pList, "Connection:keep-alive");
+		pList = curl_slist_append(pList, "Accept-Language: zh-CN,zh;q=0.8");
+		pList = curl_slist_append(pList, "Connection: keep-alive");
+		pList = curl_slist_append(pList, "User-Agent: Mozilla/5.0 (compatible; ypkg/0.0.1) libcurl/7.81.0");
 
 		curl_easy_setopt(pCurl, CURLOPT_HTTPHEADER, pList);
 
