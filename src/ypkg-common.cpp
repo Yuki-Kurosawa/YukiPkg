@@ -59,3 +59,13 @@ string ParseURLAsFileName(string url)
 
     return ret;
 }
+
+string ParseConfigToURL(string baseUrl,string codeName,char* filename)
+{
+    string url=baseUrl;
+    url+="/dists/";
+    url+=codeName;
+    url+="/";
+    url+=filename;
+    return url;
+}

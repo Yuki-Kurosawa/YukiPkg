@@ -50,6 +50,8 @@ void StringReplace(string&s1,const string&s2,const string&s3);
 
 string ParseURLAsFileName(string url);
 
+string ParseConfigToURL(string baseUrl,string codeName,char* filename);
+
 #define YPKG_COMMON_H
 
 #endif

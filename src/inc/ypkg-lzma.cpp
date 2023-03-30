@@ -118,48 +118,36 @@ decompress(lzma_stream *strm, const char *inname, FILE *infile, FILE *outfile)
 }
 
 
-extern int
-xz_main(int argc, char **argv)
+int unxz(char* xz,char* ret)
 {
-	if (argc <= 1) {
-		fprintf(stderr, "Usage: %s FILES...\n", argv[0]);
-		return EXIT_FAILURE;
-	}
 
 	lzma_stream strm = LZMA_STREAM_INIT;
 
 	bool success = true;
 
-	// Try to decompress all files.
-	for (int i = 1; i < argc; ++i) {
-		if (!init_decoder(&strm)) {
-			// Decoder initialization failed. There's no point
-			// to retry it so we need to exit.
-			success = false;
-			break;
-		}
-
-		FILE *infile = fopen(argv[i], "rb");
-
-		if (infile == NULL) {
-			fprintf(stderr, "%s: Error opening the "
-					"input file: %s\n",
-					argv[i], strerror(errno));
-			success = false;
-		} else {
-			success &= decompress(&strm, argv[i], infile, stdout);
-			fclose(infile);
-		}
-	}
-
-	// Free the memory allocated for the decoder. This only needs to be
-	// done after the last file.
-	lzma_end(&strm);
-
-	if (fclose(stdout)) {
-		fprintf(stderr, "Write error: %s\n", strerror(errno));
+	
+	if (!init_decoder(&strm)) {
+		// Decoder initialization failed. There's no point
+		// to retry it so we need to exit.
 		success = false;
+		return -1;
 	}
+
+	FILE *infile = fopen(xz, "rb");
+	FILE *outfile = fopen(ret, "wb");
+
+	if (infile == NULL) {
+		fprintf(stderr, "%s: Error opening the "
+				"input file: %s\n",
+				xz, strerror(errno));
+		success = false;
+	} else {
+		success &= decompress(&strm, xz, infile, outfile);
+		fclose(infile);		
+		fclose(outfile);
+	}
+	
+	lzma_end(&strm);
 
 	return success ? EXIT_SUCCESS : EXIT_FAILURE;
 }

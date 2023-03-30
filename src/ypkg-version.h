@@ -3,5 +3,5 @@
 #define MAJOR 0
 #define MINOR 0
 #define REV 1
-#define SUFFIX "-1debian11"
+#define SUFFIX "-1debian12"
 #endif
