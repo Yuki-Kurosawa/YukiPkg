@@ -6,5 +6,5 @@ ypkg_SOURCES=src/ypkg-common.cpp src/inc/ypkg-srclist.cpp src/main.cpp \
  src/cmd/ypkg-update.cpp src/inc/ypkg-config.cpp src/cmd/ypkg-config.cpp 
   
 
-ypkg_LDADD=-lcurl -llzma
+ypkg_LDADD=-lcurl -llzma -lsqlite3
 ypkg_CXXFLAGS=-DDEBUG

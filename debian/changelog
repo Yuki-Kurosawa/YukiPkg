@@ -1,5 +1,12 @@
 yukipkg (0.0.1-1debian12) unstable; urgency=medium
 
+  * Change Apt-compactible Source struct format
+  * Add SQLite3 support for future use
+
+ -- Yuki Kurosawa HotKey <yuki@ksyuki.com>  Thu, 30 Mar 2023 14:36:12 +0800
+
+yukipkg (0.0.1-1debian12) unstable; urgency=medium
+
   * Add Packages.xz decompress method
 
  -- Yuki Kurosawa HotKey <yuki@ksyuki.com>  Thu, 30 Mar 2023 14:36:12 +0800

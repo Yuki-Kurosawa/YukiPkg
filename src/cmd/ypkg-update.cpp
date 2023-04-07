@@ -4,6 +4,7 @@
 #include "src/inc/ypkg-srclist.h"
 #include "src/conf/ypkg-apt-config.h"
 #include "src/inc/ypkg-lzma.h"
+#include "src/inc/ypkg-sqlite.h"
 
 int UpdateCommand(int argc,char** argv){
     
@@ -16,7 +17,7 @@ int UpdateCommand(int argc,char** argv){
 
     int i=0;   
     int process=0;
-    vector<string> plists;
+    vector<AptSource> plists;
     
     for(i=0;i<len;i++){
         process++;
@@ -68,8 +69,9 @@ int UpdateCommand(int argc,char** argv){
                     else
                     {
                         printf("Get:%d %s %s/%s %s [%ld Bytes]\n",process,sconf.baseUrl,sconf.codeName,repo,"Packages.xz",size);
-                        DownloadFiles(StringToCharPointer(plist_url),StringToCharPointer(plist_file),&size,false);   
-                        plists.push_back(plist_url);         
+                        DownloadFiles(StringToCharPointer(plist_url),StringToCharPointer(plist_file),&size,false); 
+                        AptSource src=  {.config=sconf,.source=plist_url};
+                        plists.push_back(src);        
                     }
                 }
             }
@@ -79,7 +81,7 @@ int UpdateCommand(int argc,char** argv){
 
     for(i=0;i<plists.size();i++)
     {
-        string u=ParseURLAsFileName(plists[i]);
+        string u=ParseURLAsFileName(plists[i].source);
 
         string xz=SOURCE_CACHE_DIR;
         xz+=u;

@@ -16,5 +16,11 @@ struct SrcConfig
     char* codeName;
 };
 
+struct AptSource
+{
+    SrcConfig config;
+    string source;
+};
+
 
 #endif

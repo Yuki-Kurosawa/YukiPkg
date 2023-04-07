@@ -1,9 +1,13 @@
 #! /bin/bash
 export YPKG_VER=0.0.1
+export YPKG_SUFFIX=-1debian13
 
 # Remove Last Build
 rm -rf config.* configure.* autom4te.cache Makefile.am *.log aclocal.* install-sh missing depcomp stamp-h1 configure configure~ compile \
 src/.deps src/.dirstamp .deps src/cmd/.deps src/inc/.deps src/cmd/.dirstamp src/inc/.dirstamp Makefile.in Makefile
+
+rm -rf ../yukipkg*.tar.*z
+
 # Configure makefile
 autoscan
 cp configure.scan configure.ac
@@ -30,11 +34,12 @@ sudo dpkg -i ../yukipkg_${YPKG_VER}*.deb > /dev/null
 ypkg version
 sudo apt purge yukipkg -y > /dev/null
 
+# Remove Last Build
+dh clean
+
 rm -rvf ../yukipkg_${YPKG_VER}*.deb > /dev/null
 rm -rvf ../yukipkg-dbgsym_${YPKG_VER}*.ddeb > /dev/null
 
-# Remove Last Build
-dh clean
 find . -name "*.o"  | xargs rm -f
 rm -rf config.* configure.* autom4te.cache Makefile.am *.log aclocal.* install-sh missing depcomp stamp-h1 configure configure~ compile \
 src/.deps src/.dirstamp .deps src/cmd/.deps src/inc/.deps src/cmd/.dirstamp src/inc/.dirstamp Makefile.in Makefile
